@@ -46,18 +46,11 @@ export class Login{
       this.authService.loginUser(loginPayload).subscribe(
         () => {
 
-          const userIdString = localStorage.getItem("user_id");
-          if (!userIdString) {
+          const token = localStorage.getItem("token");
+          if (!token) {
             return;
           }
-          const userId: number = parseInt(userIdString, 10);
-          // const userRoles = this.userService.getUserRoles(userId).subscribe(
-          //   roles => {
-          //     if(roles.includes('TENANT'))
-          //       this.router.navigate(['/renter/renter-apartment']);       //jak damy radę to damy tu hello
-          //     else if(roles.includes('OWNER'))
-          //       this.router.navigate(['/owner/owner-apartments']);        //tu też
-          //   });
+
           console.log("Login successful, redirecting...");
           // this.msgService.add({ severity: 'success', summary: 'Login success', detail: 'Witaj w EasyRent' });
           //}

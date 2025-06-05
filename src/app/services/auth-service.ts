@@ -12,7 +12,7 @@ import {LoginForm} from '../interfaces/login-form';
 export class AuthService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
-  private loginUrl = '/api/login';
+  private loginUrl = 'http://127.0.0.1:8082/auth/login';
   private logoutUrl = '/api/logout';
   private jwtHelper = new JwtHelperService();
 
@@ -26,8 +26,9 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.loginUrl, loginForm, { headers, withCredentials: true }).pipe(
       tap((response: any) => {
-        localStorage.setItem('user_id', response.user_id);
-        this.initializeUserFromCookie(); // Assuming cookie handling setup
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', response.user);
+        this.initializeUserFromCookie();
       })
     );
   }
@@ -46,6 +47,7 @@ export class AuthService {
 
   private initializeUserFromCookie(): void {
     const token = this.getCookie('jwt');
+    console.log("token", token);
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       if (decodedToken) {
