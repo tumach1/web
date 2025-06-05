@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth-service';
 import {Router} from '@angular/router';
 import {LoginForm} from '../../interfaces/login-form';
@@ -15,17 +15,17 @@ import {NgIf} from '@angular/common';
   styleUrl: './login.css'
 })
 export class Login{
-  // @ts-ignore
-  loginForm = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', Validators.required]
-  });
+  public loginForm : FormGroup;
 
   constructor(
       private fb: FormBuilder,
       private authService: AuthService,
       private router: Router
       ) {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', Validators.required]
+    });
 
   }
 
