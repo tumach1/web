@@ -5,6 +5,7 @@ import {User} from '../shared/user';
 import {Observable, tap} from 'rxjs';
 import {LoginForm} from '../interfaces/login-form';
 import {RegisterForm} from '../interfaces/register-form';
+import {ifError} from 'node:assert';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private loginUrl = 'http://127.0.0.1:8082/auth/login';
   private logoutUrl = '/api/logout';
-  private registerUrl = 'http://127.0.0.1:8082/auth/login';
+  private registerUrl = 'http://127.0.0.1:8082/auth/register';
   private jwtHelper = new JwtHelperService();
 
   private loggedInUser: User | null = null;
@@ -26,6 +27,7 @@ export class AuthService {
 
   loginUser(loginForm: LoginForm): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log("loginForm");
     return this.http.post(this.loginUrl, loginForm, { headers, withCredentials: true }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);

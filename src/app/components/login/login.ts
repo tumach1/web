@@ -16,6 +16,7 @@ import {NgIf} from '@angular/common';
 })
 export class Login{
   public loginForm : FormGroup;
+  public errorMessage: string = '';
 
   constructor(
       private fb: FormBuilder,
@@ -55,7 +56,13 @@ export class Login{
           //}
         },
         (error) => {
-          console.error('Login error:', error);
+          if(error.status === 404) {
+            this.errorMessage = error.error.message;
+            console.log("here", this.errorMessage);
+          }
+          else if(error.status === 401) {
+            this.errorMessage = error.error.message;
+          }
           // this.msgService.add({ severity: 'error', summary: 'Login error', detail: 'Wpisz poprawne dane.' });
         }
       );

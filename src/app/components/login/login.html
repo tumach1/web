@@ -45,5 +45,15 @@
     >
       Login
     </button>
+    <div class="mt-4 text-center">
+      <a routerLink="/register" class="text-green-600 hover:underline">Don't have an account? Sign Up</a>
+    </div>
+<!--  add error message if user not found-->
+    <div *ngIf="errorMessage" class="text-red-600 text-sm mt-4 text-center">
+      {{ errorMessage }}
+    </div>
+
   </form>
+
 </div>
+
