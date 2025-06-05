@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import {User} from '../shared/user';
 import {Observable, tap} from 'rxjs';
 import {LoginForm} from '../interfaces/login-form';
+import {RegisterForm} from '../interfaces/register-form';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class AuthService {
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private loginUrl = 'http://127.0.0.1:8082/auth/login';
   private logoutUrl = '/api/logout';
+  private registerUrl = 'http://127.0.0.1:8082/auth/login';
   private jwtHelper = new JwtHelperService();
 
   private loggedInUser: User | null = null;
@@ -74,16 +76,16 @@ export class AuthService {
     return cookieValue;
   }
 
-  //
-  // registerUser(registrationData: RegistrationForm): Observable<any> {
-  //   const registerUrl = `/api/v1/auth/signup`;
-  //   return this.http.post(registerUrl, registrationData, { headers: this.headers, withCredentials: true })
-  //     .pipe(
-  //       tap(response => {
-  //         console.log('Registration successful', response);
-  //       }, error => {
-  //         console.error('Registration failed', error);
-  //       })
-  //     );
-  // }
+  registerUser(registrationData: RegisterForm): Observable<any> {
+    // const registerUrl = `/auth/register`;
+    return this.http.post(this.registerUrl, registrationData, { headers: this.headers, withCredentials: true })
+      .pipe(
+        tap(response => {
+          console.log('Registration successful', response);
+        }, error => {
+          console.error('Registration failed', error);
+        })
+      );
+
+  }
 }

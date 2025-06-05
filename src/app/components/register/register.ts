@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
   imports: [
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './register.html',
   styleUrl: './register.css'
@@ -16,6 +18,7 @@ export class Register {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router
   ) {
     this.registerForm = this.fb.group({
       username: [''],
@@ -30,7 +33,7 @@ export class Register {
 
     register() {
       if (this.registerForm.valid) {
-        this.authService.register(this.registerForm.value).subscribe({
+        this.authService.registerUser(this.registerForm.value).subscribe({
           next: (response) => {
             console.log('Registration successful', response);
           },
@@ -41,6 +44,7 @@ export class Register {
       } else {
         console.error('Form is invalid');
       }
+      this.router.navigate(['/login']);
     }
 
 
