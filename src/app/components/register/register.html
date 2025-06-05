@@ -80,5 +80,8 @@
         <a href="/login" class="text-green-600 underline hover:text-green-800">Login here</a>
       </p>
     </div>
+    <div *ngIf="errorMessage" class="text-red-600 text-sm mt-4 text-center">
+      {{ errorMessage }}
+    </div>
   </form>
 </div>

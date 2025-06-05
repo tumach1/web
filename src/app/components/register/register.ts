@@ -2,18 +2,21 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth-service';
 import {Router} from '@angular/router';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-register',
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    NgIf,
   ],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 export class Register {
   public registerForm: FormGroup;
+  public errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
