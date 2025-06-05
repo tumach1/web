@@ -79,13 +79,14 @@ export class AuthService {
   }
 
   registerUser(registrationData: RegisterForm): Observable<any> {
+    console.log(registrationData.isCreator)
     // const registerUrl = `/auth/register`;
     return this.http.post(this.registerUrl, registrationData, { headers: this.headers, withCredentials: true })
       .pipe(
         tap(response => {
           console.log('Registration successful', response);
         }, error => {
-          console.error('Registration failed', error);
+
         })
       );
 
