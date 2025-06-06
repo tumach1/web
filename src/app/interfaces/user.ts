@@ -6,5 +6,5 @@ export interface User {
   isCreator: boolean;
   createdAt: Date;
   followersCount: number;
-  followingCount: number;
+  followingsCount: number;
 }

@@ -27,7 +27,7 @@ export class AuthService {
 
   loginUser(loginForm: LoginForm): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log("loginForm");
+
     return this.http.post(this.loginUrl, loginForm, { headers }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
@@ -51,7 +51,7 @@ export class AuthService {
 
   private initializeUserFromCookie(): void {
     const token = this.getCookie('jwt');
-    console.log("token", token);
+
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       if (decodedToken) {
@@ -79,12 +79,12 @@ export class AuthService {
   }
 
   registerUser(registrationData: RegisterForm): Observable<any> {
-    console.log(registrationData.isCreator)
+
     // const registerUrl = `/auth/register`;
     return this.http.post(this.registerUrl, registrationData, { headers: this.headers, withCredentials: true })
       .pipe(
         tap(response => {
-          console.log('Registration successful', response);
+
         }, error => {
 
         })

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import {CommonModule, DatePipe, NgIf} from '@angular/common';
 import { Post } from '../../interfaces/post';
 import { Media } from '../../interfaces/media';
+import { User } from '../../interfaces/user';
 import { PostsService } from '../../services/posts-service';
+import {UserService } from '../../services/user-service';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -20,9 +22,11 @@ export class Home {
   posts: Post[] = [];
   mediaMap: { [postId: string]: Media[] } = {};
   searchQuery = '';
+  foundUsers: User[] = [];
 
   constructor(
-    private postsService: PostsService
+    private postsService: PostsService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -30,15 +34,28 @@ export class Home {
   }
 
   fetchPosts() {
-    this.postsService.getFollowingPosts().subscribe(post => {
-      this.posts.push(post);
+      this.postsService.getFollowingPosts().subscribe({
+      next: (data: Post[]) => {
+        this.posts = data;
+
+        for (const post of this.posts) {
+
+        }
+      },
+      error: (error) => {
+        console.error("Error fetching posts:", error);
+      }
     });
-    console.log(this.posts);
-  }
+    }
 
   searchUsers() {
-    alert('Szukaj użytkownika: ' + this.searchQuery);
+    if (!this.searchQuery.trim()) {
+      this.foundUsers = [];
+      return;
+    }
+    this.userService.searchUsers(this.searchQuery).subscribe(users => {
+      this.foundUsers = users;
+    });
   }
-
 
 }

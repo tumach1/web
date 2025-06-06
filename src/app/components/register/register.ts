@@ -36,13 +36,13 @@ export class Register {
 
     register() {
       if (this.registerForm.valid) {
-        console.log("Registering user with data:", this.registerForm.value );
+
         if(this.registerForm.value.isCreator === "true") {
           this.registerForm.value.isCreator = true;
         }
         this.authService.registerUser(this.registerForm.value).subscribe({
           next: (response) => {
-            console.log('Registration successful', response);
+
             this.router.navigate(['/login']);
           },
           error: (error) => {

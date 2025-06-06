@@ -21,6 +21,7 @@ export class Login{
   constructor(
       private fb: FormBuilder,
       private authService: AuthService,
+      private router: Router
       ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -51,14 +52,16 @@ export class Login{
             return;
           }
 
-          console.log("Login successful, redirecting...");
+
+
+          this.router.navigate(['/home']);
           // this.msgService.add({ severity: 'success', summary: 'Login success', detail: 'Witaj w EasyRent' });
           //}
         },
         (error) => {
           if(error.status === 404) {
             this.errorMessage = error.error.message;
-            console.log("here", this.errorMessage);
+
           }
           else if(error.status === 401) {
             this.errorMessage = error.error.message;
@@ -67,7 +70,7 @@ export class Login{
         }
       );
     } else {
-      console.log("Form is invalid");
+
       // this.msgService.add({ severity: 'error', summary: 'Login erro', detail: 'Wpisz poprawne dane.' });
     }
   }

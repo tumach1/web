@@ -16,7 +16,7 @@ export class PostsService {
     const localStorage = this.document.defaultView?.localStorage;
     this.localStorage = localStorage || null;
     this.token = localStorage ? localStorage.getItem('token') || '' : '';
-    console.log("Token from localStorage:", this.token);
+
   }
 
   getFollowingPosts(): Observable<any> {
@@ -25,7 +25,7 @@ export class PostsService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token}`
     });
-    console.log("rjfdj: "+this.token)
+
     try {
       return this.http.get(this.followingPostsUrl, {headers, withCredentials: true});
     } catch (error) {
