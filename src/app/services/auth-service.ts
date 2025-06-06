@@ -28,7 +28,7 @@ export class AuthService {
   loginUser(loginForm: LoginForm): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     console.log("loginForm");
-    return this.http.post(this.loginUrl, loginForm, { headers, withCredentials: true }).pipe(
+    return this.http.post(this.loginUrl, loginForm, { headers }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', response.user);

@@ -1,0 +1,48 @@
+<!-- src/app/components/posts/posts.html -->
+<div class="min-h-screen bg-green-50 py-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center mb-8 gap-2">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Szukaj użytkownika..."
+        class="flex-1 px-4 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <button
+        (click)="searchUsers()"
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+      >
+        Szukaj
+      </button>
+    </div>
+
+    @for (post of posts; track post.id) {
+      <div class="bg-white rounded-lg shadow-md mb-6 p-6">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-xl font-bold text-green-700">{{ post.title }}</h2>
+          <span class="text-green-500 text-sm">{{ post.createdAt | date:'short' }}</span>
+        </div>
+        <p class="mb-4 text-green-900">{{ post.content }}</p>
+        <div *ngIf="mediaMap[post.id]?.length" class="mb-4 flex flex-wrap gap-4">
+          @for (media of mediaMap[post.id]; track media.filePath) {
+            <ng-container *ngIf="media.type === 'image'">
+              <img [src]="media.filePath" alt="media" class="w-40 h-40 object-cover rounded" />
+            </ng-container>
+            <ng-container *ngIf="media.type === 'video'">
+              <video controls class="w-40 h-40 rounded">
+                <source [src]="media.filePath" type="video/mp4" />
+              </video>
+            </ng-container>
+            <ng-container *ngIf="media.type === 'audio'">
+              <audio controls class="w-40">
+                <source [src]="media.filePath" type="audio/mpeg" />
+              </audio>
+            </ng-container>
+          }
+        </div>
+
+  </div>
+    }
+</div>
+</div>
+

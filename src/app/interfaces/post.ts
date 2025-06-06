@@ -1,3 +1,5 @@
+import {Media} from './media';
+
 export interface Post {
   id: string;
   title: string;
@@ -5,4 +7,5 @@ export interface Post {
   creatorId: string;
   createdAt: Date;
   isFollowersOnly: boolean;
+  media: Media;
 }
