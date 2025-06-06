@@ -80,7 +80,6 @@ export class AuthService {
 
   registerUser(registrationData: RegisterForm): Observable<any> {
 
-    // const registerUrl = `/auth/register`;
     return this.http.post(this.registerUrl, registrationData, { headers: this.headers, withCredentials: true })
       .pipe(
         tap(response => {

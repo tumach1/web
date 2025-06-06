@@ -55,7 +55,6 @@ export class Login{
 
 
           this.router.navigate(['/home']);
-          // this.msgService.add({ severity: 'success', summary: 'Login success', detail: 'Witaj w EasyRent' });
           //}
         },
         (error) => {
@@ -66,12 +65,10 @@ export class Login{
           else if(error.status === 401) {
             this.errorMessage = error.error.message;
           }
-          // this.msgService.add({ severity: 'error', summary: 'Login error', detail: 'Wpisz poprawne dane.' });
         }
       );
     } else {
 
-      // this.msgService.add({ severity: 'error', summary: 'Login erro', detail: 'Wpisz poprawne dane.' });
     }
   }
 
